@@ -2,15 +2,15 @@
 
 A Chrome extension that keeps you hydrated while you browse. Every so often a pixel buddy walks onto your screen with a water bottle, stops, and asks you to **Sip** or **Snooze**. Sip and Surf also tracks how much you drink each day against a daily target, with history and insights.
 
-![Placeholder sprite sheet](docs/sheet-preview.png)
+![The Sip and Surf character walking and taking a sip](docs/character-preview.gif)
 
 ## Features
 
 - **Reminder interval** you pick in the popup (10 minutes to 10 hours, presets or custom).
-- **Walking buddy:** enters from the far left of the page, takes 8 steps along the bottom of the screen, then stops. A sip sound plays when he arrives.
-- **Sip:** he drinks from the bottle, hops, and leaves. Your sip is logged and the timer resets to 100% of your interval.
-- **Snooze:** he walks off to the right and comes back after exactly 5% of your interval (60 min interval: 3 min snooze).
-- **Auto-snooze:** if nobody answers within 60 seconds he snoozes on his own.
+- **Walking buddy:** enters from the far left of the page, takes 8 steps along the bottom of the screen, then stops. A sip sound plays on arrival.
+- **Sip:** the buddy drinks from the bottle, hops, and leaves. Your sip is logged and the timer resets to 100% of your interval.
+- **Snooze:** the buddy walks off to the right and comes back after exactly 5% of your interval (60 min interval: 3 min snooze).
+- **Auto-snooze:** if nobody answers within 60 seconds, the buddy snoozes automatically.
 - **Daily intake tracking:** each Sip adds one serving (250 ml by default). Log extra glasses or undo from the popup.
 - **History and insights:** today vs target, current and best streak, target hit rate, daily average, how often reminders get a Sip, a daily intake chart with the target line, a drink-by-hour chart, a day-by-day table and CSV export.
 - **Works everywhere it can:** on pages where Chrome blocks extensions (`chrome://` pages, the Chrome Web Store), you get a system notification with Sip and Snooze buttons instead.
@@ -25,7 +25,13 @@ A Chrome extension that keeps you hydrated while you browse. Every so often a pi
 
 Chrome shows "Read and change all your data on all websites" at install. That's needed because the buddy appears on whatever page you are on without you clicking the extension first. Sip and Surf never reads page content and sends nothing anywhere.
 
-## Using your own character
+## The character
+
+The buddy is a pixel portrait of ayush (messy hair, round shades, black high-collar jacket, grey backpack), drawn in `tools/make_character.py` as a letter grid, one letter per pixel. Edit the grid and run `python3 tools/make_character.py` to tweak the look.
+
+![All 11 frames built from the one image](docs/sheet-preview.png)
+
+### Using a different character
 
 Everything comes from **one image**: `assets/character-sprite.png`.
 
@@ -35,7 +41,7 @@ Everything comes from **one image**: `assets/character-sprite.png`.
 
 When the extension starts, it builds the full sprite sheet from that single image (`lib/sprite.js`): 1 idle frame, 4 walk frames (a bob, lean and squash cycle, two steps per cycle) and 6 drink frames (tilts back with the bottle up, with water droplets, then comes back). You don't draw any extra frames. To change the poses, edit the `POSES` table in `lib/sprite.js`.
 
-The on-screen height is about 128 px. Small images scale up by whole numbers so the pixels stay sharp.
+The on-screen height is about 160 px. Small images scale up by whole numbers so the pixels stay sharp.
 
 ## How it works
 
@@ -50,7 +56,8 @@ The on-screen height is about 128 px. Small images scale up by whole numbers so 
 | `offscreen/` | Plays `assets/sip.wav`. Service workers can't play audio, so an offscreen document does it. |
 | `popup/` | Today's intake, the countdown, and the settings. |
 | `history/` | History and insights page (also opens as the extension's options page). |
-| `tools/make_assets.py` | Regenerates the placeholder character, the icons and the sip sound. |
+| `tools/make_character.py` | Draws the character into `assets/character-sprite.png`. |
+| `tools/make_assets.py` | Regenerates the icons and the sip sound. |
 
 Timer rules:
 
@@ -62,7 +69,8 @@ Timer rules:
 
 ```sh
 npm test                    # unit tests for the insights maths (Node 18+)
-python3 tools/make_assets.py  # regenerate placeholder art, icons and sound (needs pillow and numpy)
+python3 tools/make_character.py  # redraw the character (needs pillow)
+python3 tools/make_assets.py     # regenerate icons and sound (needs pillow and numpy)
 ```
 
-If motion is reduced in your OS settings, the buddy fades in where he stops instead of walking.
+If motion is reduced in your OS settings, the buddy fades in at the stopping point instead of walking.

@@ -6,9 +6,9 @@
 
   const STEPS = 8; // the buddy takes 8 steps, then stops
   const STEP_MS = 450;
-  const EXIT_STEP_MS = 300; // walks off a little quicker than he walks in
-  const STOP_AT = 0.35; // share of the viewport width where he stops
-  const TARGET_HEIGHT = 128; // on-screen height in CSS px
+  const EXIT_STEP_MS = 300; // walking off is a little quicker than walking in
+  const STOP_AT = 0.35; // share of the viewport width where the buddy stops
+  const TARGET_HEIGHT = 160; // on-screen height in CSS px (roughly; pixel art snaps to whole-number scales)
 
   const CSS = `
     :host { all: initial; }

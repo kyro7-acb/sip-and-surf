@@ -1,4 +1,4 @@
-"""Generates the placeholder character, the toolbar icons and the sip sound.
+"""Generates the toolbar icons and the sip sound (make_placeholder_character() keeps the old placeholder).
 
 Run from the repo root:  python3 tools/make_assets.py
 Needs Pillow and numpy (pip install pillow numpy).
@@ -70,7 +70,7 @@ PALETTE = {
 }
 
 
-def make_character():
+def make_placeholder_character():
     w, h = len(CHARACTER[0]), len(CHARACTER)
     img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     for y, row in enumerate(CHARACTER):
@@ -152,7 +152,6 @@ def make_sip_sound():
 
 
 if __name__ == "__main__":
-    make_character()
     make_icons()
     make_sip_sound()
-    print("Wrote assets/character-sprite.png, assets/sip.wav and icons/*.png")
+    print("Wrote assets/sip.wav and icons/*.png (the character comes from tools/make_character.py)")
