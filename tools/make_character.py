@@ -245,12 +245,12 @@ SIDE_HAIR = [R(y, a, b, "h") for y, a, b in [
     (4, 27, 33), (5, 23, 36), (6, 21, 38), (7, 20, 39), (8, 19, 39), (9, 19, 40), (10, 18, 40),
     (11, 18, 40), (12, 18, 40), (13, 18, 39), (14, 18, 30), (14, 33, 39), (15, 18, 28), (15, 36, 39),
     (16, 18, 27), (16, 38, 39), (17, 18, 26), (18, 18, 24), (19, 18, 24), (20, 19, 24), (21, 19, 24),
-    (22, 19, 24), (23, 20, 25), (24, 21, 25), (25, 22, 25)]]
+    (22, 19, 24), (23, 20, 25), (24, 21, 25), (25, 22, 25), (26, 24, 25)]]
 
 SIDE_DETAIL = (
     # the back edge and the nape a shade darker
     [R(y, 18, 19, "d") for y in range(13, 23)] + px([(20, 21), (20, 22), (21, 23), (21, 24), (22, 24), (22, 25),
-                                                      (23, 25), (23, 26), (24, 26), (19, 23), (20, 23)], "d")
+                                                      (23, 25), (24, 26), (19, 23), (20, 23)], "d")
     # big side above the part: a band of shine along the sweep, strands falling forward
     + px([(27, 5), (28, 5), (29, 5), (30, 5), (31, 5), (32, 5), (33, 6), (34, 6), (35, 7),
           (26, 6), (27, 6), (28, 6), (29, 6), (30, 6)], "l")
@@ -302,8 +302,9 @@ def side_head(f, oy):
     o = lambda pts: move(pts, 0, oy)
     # Neck first, so the head's outline draws the jawline over it.
     # The throat sits well behind the chin, so the jaw stands out against the neck in shadow.
-    neck = poly(o([(24.6, 21.0), (30.0, 25.5), (33.0, 29.0), (33.6, 31.0), (33.8, 35.0), (23.4, 35.0),
-                   (23.2, 27.0), (23.8, 24.0)]))
+    # Its back sits under the ear, well in front of the back of the head.
+    neck = poly(o([(26.0, 21.0), (30.0, 25.5), (33.0, 29.0), (33.6, 31.0), (33.8, 35.0), (25.4, 35.0),
+                   (25.8, 29.0), (26.0, 25.0)]))
     jaw = runs_mask(SIDE_SKIN, "S", oy)
     f.part(neck, SKIN["sh"], SKIN["ol"], [(dilate(dilate(dilate(jaw))) & ~jaw, SKIN["dk"])])
 
