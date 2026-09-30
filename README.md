@@ -27,7 +27,7 @@ Chrome shows "Read and change all your data on all websites" at install. That's 
 
 ## The character
 
-The buddy is a pixel portrait of ayush, drawn from a photo: straight, slicked dark hair with an 80/20 side part, big round shades with the blue, white and red temple, a long straight nose, a thin moustache, a fuller lower lip, an oval face with a little stubble on the chin, the black high-collar jacket with its logo patch, and a grey backpack on the back with both straps over the shoulders.
+The buddy is a pixel portrait of ayush, drawn from a photo: straight, slicked dark hair with an 80/20 side part, big round shades with the blue, white and red temple, a long straight nose, a thin moustache, a fuller lower lip, an oval face with a clean jawline, the black high-collar jacket with its logo patch, and a grey backpack on the back with both straps over the shoulders.
 
 - **Walking:** side view, looking where it's going, with an 8-frame walk cycle (heel strike, knee bend, push-off) and arms swinging opposite the legs. The page moves it exactly one stride per step, so its feet don't slide.
 - **Stopping:** it turns through a three-quarter view to face you and makes eye contact.

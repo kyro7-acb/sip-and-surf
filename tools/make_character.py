@@ -34,8 +34,8 @@ SS = 8  # supersampling for the vector shapes
 # Palette (from the photo: warm skin, dark brown hair, black shades with a blue, white and red
 # temple, black high-collar jacket with a white logo patch, grey backpack)
 
-SKIN = {"hi": (224, 172, 130), "lt": (206, 152, 110), "base": (186, 130, 90), "sh": (156, 102, 68),
-        "dk": (124, 76, 50), "ol": (82, 46, 34)}
+SKIN = {"hi": (238, 194, 156), "lt": (226, 176, 136), "base": (208, 154, 112), "sh": (180, 126, 90),
+        "dk": (146, 96, 66), "ol": (94, 56, 42)}
 HAIR = {"hi": (108, 84, 68), "lt": (74, 56, 45), "base": (47, 35, 30), "dk": (30, 22, 20), "ol": (15, 11, 11)}
 JACKET = {"hi": (98, 96, 110), "lt": (72, 70, 82), "base": (50, 49, 58), "sh": (37, 36, 43),
           "dk": (26, 25, 31), "ol": (12, 11, 15)}
@@ -192,7 +192,7 @@ LETTERS = {
     "G": GLASS["lens"], "g": GLASS["ref"], "F": GLASS["rim"], "*": GLASS["glint"], "R": RED, "B": BLUE,
     "J": JACKET["base"], "j": JACKET["sh"], "Q": JACKET["lt"], "q": JACKET["dk"], "Z": JACKET["ol"],
     "P": LOGO, "p": LOGO_INK, "V": (238, 240, 246),
-    "m": (112, 74, 56), "n": (164, 114, 82),  # moustache, stubble
+    "m": (150, 100, 74),  # thin moustache
 }
 
 
@@ -235,8 +235,8 @@ def px(points, c):
 
 SIDE_SKIN = [R(y, a, b) for y, a, b in [
     (13, 31, 36), (14, 30, 37), (15, 29, 37), (16, 28, 38), (17, 28, 38), (18, 26, 37), (19, 25, 38),
-    (20, 25, 39), (21, 25, 40), (22, 25, 40), (23, 26, 39), (24, 26, 38), (25, 27, 38), (26, 27, 38),
-    (27, 28, 37), (28, 29, 37), (29, 31, 36)]]
+    (20, 25, 39), (21, 25, 40), (22, 25, 40), (23, 26, 39), (24, 26, 38), (25, 26, 38), (26, 27, 38),
+    (27, 27, 37), (28, 28, 37), (29, 30, 36)]]
 
 # Straight, slicked hair. The part is on this side (his right): below it the hair is combed
 # smooth back towards the ear, above it the big side rises and sweeps over, its ends falling
@@ -275,18 +275,18 @@ SIDE_DETAIL = (
         R(18, 26, 27, "s"), R(19, 25, 25, "L"), R(19, 26, 26, "s"), R(20, 26, 26, "k"), R(21, 26, 26, "k"),
         R(22, 26, 26, "s"), R(19, 27, 27, "k"), R(20, 27, 27, "s"), R(21, 27, 27, "s"), R(22, 27, 27, "k"),
         R(23, 26, 26, "k"), R(20, 25, 25, "S"), R(21, 25, 25, "S"),
-        # face: shade behind the cheekbone and along the jaw, light on the cheekbone and the nose
-        R(21, 28, 30, "s"), R(22, 28, 31, "s"), R(23, 27, 32, "s"), R(24, 27, 33, "s"), R(25, 27, 34, "s"),
-        R(26, 28, 35, "s"), R(27, 28, 35, "s"), R(28, 29, 35, "s"), R(29, 31, 34, "s"), R(28, 29, 30, "k"),
+        # face: soft shade in front of the ear, light on the cheekbone and the nose
+        R(21, 28, 29, "s"), R(22, 28, 29, "s"), R(23, 27, 28, "s"), R(24, 27, 28, "s"), R(25, 27, 28, "s"),
+        R(26, 28, 28, "s"), R(27, 28, 28, "s"), R(28, 30, 35, "L"), R(29, 31, 35, "S"),
         R(20, 33, 36, "L"), R(21, 33, 36, "L"), R(22, 34, 35, "L"), R(20, 39, 39, "L"), R(21, 39, 40, "L"),
         R(19, 37, 38, "L"), R(18, 36, 36, "s"),
         # brow over the lens
         R(15, 33, 35, "d"),
         # nose: nostril and the shadow under it
         R(23, 38, 38, "k"), R(22, 39, 40, "s"), R(23, 39, 39, "s"), R(23, 37, 37, "s"),
-        # moustache, lips (fuller lower lip), chin with a little stubble
-        R(24, 36, 38, "m"), R(25, 37, 38, "U"), R(26, 35, 37, "M"), R(26, 38, 38, "W"), R(27, 36, 36, "s"),
-        R(27, 37, 37, "w"), R(28, 36, 37, "L"), R(28, 35, 35, "n"), R(29, 34, 36, "n"),
+        # thin moustache, lips (fuller lower lip), chin
+        R(24, 37, 38, "m"), R(25, 37, 38, "U"), R(26, 35, 37, "M"), R(26, 38, 38, "W"), R(27, 36, 36, "s"),
+        R(27, 37, 37, "w"), R(28, 36, 37, "L"),
         # shades: the lens in front of the eye, the arm back to the ear with blue, white and red
         R(16, 29, 36, "F"), R(17, 28, 28, "F"), R(16, 33, 33, "B"), R(16, 34, 34, "V"), R(16, 35, 35, "R"),
         R(15, 37, 38, "F"), R(16, 37, 39, "G"), R(17, 37, 39, "G"), R(18, 37, 39, "G"), R(19, 37, 39, "G"),
@@ -299,12 +299,12 @@ SIDE_DETAIL = (
 def side_head(f, oy):
     o = lambda pts: move(pts, 0, oy)
     # Neck first, so the head's outline draws the jawline over it.
-    neck = poly(o([(26.0, 24.0), (31.0, 29.0), (35.4, 30.4), (35.4, 33), (25.5, 33), (25.0, 26)]))
-    f.part(neck, SKIN["sh"], SKIN["ol"], [(poly(o([(25, 24), (36, 30.6), (36, 33), (25, 33)])), SKIN["dk"])])
+    neck = poly(o([(25.6, 23.0), (29.0, 28.0), (35.4, 30.2), (35.4, 33), (24.6, 33), (24.4, 26)]))
+    f.part(neck, SKIN["sh"], SKIN["ol"])
 
     # High funnel collar around the neck.
-    collar = poly(o([(23.6, 25.6), (27.4, 27.8), (31.5, 29.8), (35.0, 30.6), (36.2, 32.4), (36.4, 35.5),
-                     (23.0, 35.5), (22.6, 29.0)]))
+    collar = poly(o([(23.4, 28.4), (27.4, 30.0), (31.5, 30.8), (35.0, 31.0), (36.2, 32.6), (36.4, 35.5),
+                     (23.0, 35.5), (22.6, 30.0)]))
     f.part(collar, JACKET["base"], JACKET["ol"], [
         (edge(collar, 0, -1), JACKET["lt"]),
         (poly(o([(22, 30.5), (27, 30.5), (26, 36), (22, 36)])), JACKET["sh"]),
@@ -591,9 +591,9 @@ FRONT_FACE = [
     R(22, 30, 30, "s"), R(22, 31, 31, "L"), R(22, 32, 32, "S"), R(22, 33, 33, "s"),
     R(23, 30, 30, "k"), R(23, 31, 32, "s"), R(23, 33, 33, "k"), R(23, 29, 29, "s"), R(23, 34, 34, "s"),
     # thin moustache
-    R(24, 29, 30, "m"), R(24, 31, 32, "n"), R(24, 33, 34, "m"),
-    # chin with a little stubble
-    R(28, 31, 32, "L"), R(28, 30, 30, "n"), R(28, 33, 33, "n"), R(29, 30, 33, "n"),
+    R(24, 29, 30, "m"), R(24, 31, 32, "s"), R(24, 33, 34, "m"),
+    # chin
+    R(28, 31, 32, "L"),
     # shades: big round lenses in a thin frame, the bridge, and the temple on his right side
     # with its blue, white and red stripes
     R(15, 26, 29, "F"), R(16, 25, 30, "G"), R(17, 25, 30, "G"), R(18, 25, 30, "G"), R(19, 25, 30, "G"),
@@ -802,9 +802,9 @@ TURN_DETAIL = (
         R(17, 35, 35, "L"), R(18, 35, 35, "L"), R(19, 35, 36, "L"), R(20, 36, 36, "L"), R(21, 36, 37, "T"),
         R(21, 38, 38, "S"), R(20, 37, 37, "s"), R(22, 36, 36, "L"), R(22, 37, 38, "s"), R(23, 37, 37, "k"),
         R(23, 35, 36, "s"), R(23, 38, 38, "s"),
-        # moustache, lips, chin with stubble
-        R(24, 33, 34, "m"), R(24, 35, 35, "n"), R(24, 36, 37, "m"), R(25, 33, 37, "U"), R(26, 34, 36, "W"),
-        R(27, 34, 36, "s"), R(28, 33, 34, "L"), R(28, 35, 35, "n"), R(29, 33, 35, "n"),
+        # thin moustache, lips, chin
+        R(24, 33, 34, "m"), R(24, 35, 35, "s"), R(24, 36, 37, "m"), R(25, 33, 37, "U"), R(26, 34, 36, "W"),
+        R(27, 34, 36, "s"), R(28, 33, 34, "L"),
         # shades: near lens full, far lens foreshortened, temple back to the ear
         R(15, 29, 32, "F"), R(16, 28, 33, "G"), R(17, 28, 33, "G"), R(18, 28, 33, "G"), R(19, 28, 33, "G"),
         R(20, 29, 32, "F"), R(16, 28, 28, "F"), R(19, 28, 28, "F"), R(16, 33, 33, "F"), R(19, 33, 33, "F"),
