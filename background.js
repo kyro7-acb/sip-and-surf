@@ -119,7 +119,8 @@ async function fireReminder() {
   await saveTimer({ mode: 'waiting', nextFireAt: null, reminderOpen: true, reminderOpenedAt: Date.now(), reminderTabId: null });
   await recordEvent('reminder');
   // Backstop in case the tab closes or navigates before anyone answers.
-  await chrome.alarms.create(AUTO_SNOOZE_ALARM, { when: Date.now() + AUTO_SNOOZE_MS + 5000 });
+  // The margin covers the walk in, the turn and his first sip before the 60 s countdown starts.
+  await chrome.alarms.create(AUTO_SNOOZE_ALARM, { when: Date.now() + AUTO_SNOOZE_MS + 15000 });
 
   const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
   try {

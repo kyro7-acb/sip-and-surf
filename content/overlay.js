@@ -7,8 +7,9 @@
   const STEPS = 8; // the buddy takes 8 steps, then stops
   const STEP_MS = 450;
   const EXIT_STEP_MS = 300; // walking off is a little quicker than walking in
-  const STOP_AT = 0.35; // share of the viewport width where the buddy stops
-  const TARGET_HEIGHT = 160; // on-screen height in CSS px (roughly; pixel art snaps to whole-number scales)
+  const STOP_AT = 0.35; // where the buddy stops if the sheet doesn't say how long a step is
+  const TURN_MS = 140; // per frame while turning to face you, or back to walk away
+  const TARGET_HEIGHT = 180; // on-screen height in CSS px (roughly; pixel art snaps to whole-number scales)
 
   const CSS = `
     :host { all: initial; }
@@ -99,7 +100,7 @@
   function walk(fromX, toX, steps, stepMs = STEP_MS) {
     const duration = steps * stepMs;
     const { sprite } = state;
-    // One walk cycle = 4 frames = 2 steps.
+    // One walk cycle = 2 steps.
     const cycle = playFrames(sprite.walkStart, sprite.walkFrames, stepMs * 2, steps / 2);
     const move = state.stage.animate(
       [{ transform: `translateX(${fromX}px)` }, { transform: `translateX(${toX}px)` }],
@@ -112,11 +113,62 @@
     });
   }
 
-  function arrive() {
+  const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  // Shows frames one after another. Stops early if the buddy was removed meanwhile.
+  async function sequence(frames, frameMs) {
+    for (const frame of frames) {
+      if (!state) return;
+      setFrame(frame);
+      await wait(frameMs);
+    }
+  }
+
+  // Sheets from tools/make_character.py have side-view walking and a front view; a sheet
+  // built from one image only has the side view.
+  function canTurn() {
+    return state.sprite.turnStart != null && state.sprite.frontIdle != null;
+  }
+
+  function turnFrames() {
+    const { turnStart, turnFrames: count } = state.sprite;
+    return Array.from({ length: count }, (_, i) => turnStart + i);
+  }
+
+  // Turns from walking to face you, then takes a sip while looking at you. The sip sound
+  // plays as the straw reaches his mouth.
+  async function greet() {
+    const { sprite } = state;
+    await sequence(turnFrames(), TURN_MS);
+    if (!state || state.leaving) return;
+    setFrame(sprite.frontIdle);
+    state.facing = 'front';
+    await wait(350);
+    if (!state || state.leaving) return;
+    const frameMs = (sprite.drinkMs || 1500) / sprite.drinkFrames;
+    const soundTimer = setTimeout(() => send('ARRIVED'), frameMs * 2);
+    const drink = playFrames(sprite.drinkStart, sprite.drinkFrames, sprite.drinkMs || 1500, 1);
+    state.anim = drink;
+    await drink.finished.catch(() => clearTimeout(soundTimer));
+    if (state && !state.leaving) setFrame(sprite.drinkStart + sprite.drinkFrames - 1); // a smile, bottle lowered
+  }
+
+  async function arrive() {
     if (!state) return;
-    setFrame(state.sprite.idle);
+    if (canTurn()) {
+      if (state.reduced) {
+        setFrame(state.sprite.frontIdle);
+        state.facing = 'front';
+        send('ARRIVED');
+      } else {
+        await greet();
+      }
+    } else {
+      setFrame(state.sprite.idle);
+      send('ARRIVED'); // plays the sip sound
+    }
+    if (!state || state.leaving) return;
     state.stage.classList.add('show-ui');
-    send('ARRIVED'); // plays the sip sound
     const bar = state.stage.querySelector('.timer > i');
     bar.animate([{ transform: 'scaleX(1)' }, { transform: 'scaleX(0)' }], {
       duration: state.autoSnoozeMs,
@@ -126,20 +178,40 @@
     state.autoTimer = setTimeout(() => leave('AUTO_SNOOZE'), state.autoSnoozeMs);
   }
 
-  // Walks off the right edge (Snooze, auto-snooze, or dismissed by the service worker).
-  function leave(message) {
+  // Turns back and walks off the right edge (Snooze, auto-snooze, or dismissed by the
+  // service worker).
+  async function leave(message) {
     if (!state || state.leaving) return;
     state.leaving = true;
     clearTimeout(state.autoTimer);
+    if (state.anim) state.anim.cancel();
     state.stage.classList.add('answered');
     if (message) send(message);
     if (state.reduced) {
       fadeOut();
       return;
     }
+    if (state.facing === 'front') {
+      await sequence(turnFrames().reverse(), TURN_MS);
+      if (!state) return;
+      setFrame(state.sprite.idle);
+      state.facing = 'side';
+    }
     const endX = window.innerWidth + state.w;
     const steps = Math.max(2, Math.ceil((endX - state.x) / state.stride / 2) * 2);
     walk(state.x, endX, steps, EXIT_STEP_MS).then(remove);
+  }
+
+  function hop() {
+    state.buddy.animate(
+      [
+        { transform: 'translateY(0)' },
+        { transform: 'translateY(-18px)', offset: 0.4 },
+        { transform: 'translateY(0)', offset: 0.8 },
+        { transform: 'translateY(0)' },
+      ],
+      { duration: 500, easing: 'ease-out' }
+    );
   }
 
   function sip() {
@@ -149,20 +221,18 @@
     state.stage.classList.add('answered');
     send('SIP');
     const { sprite } = state;
+    if (sprite.cheers != null && state.facing === 'front') {
+      // He already had his sip; now he raises the bottle to you, hops, and goes.
+      setFrame(sprite.cheers);
+      hop();
+      fadeOut(700);
+      return;
+    }
     const drink = playFrames(sprite.drinkStart, sprite.drinkFrames, sprite.drinkMs || 1500, 1);
     drink.finished.then(() => {
       if (!state) return;
       setFrame(sprite.idle);
-      // A happy little hop, then gone.
-      state.buddy.animate(
-        [
-          { transform: 'translateY(0)' },
-          { transform: 'translateY(-18px)', offset: 0.4 },
-          { transform: 'translateY(0)', offset: 0.8 },
-          { transform: 'translateY(0)' },
-        ],
-        { duration: 500, easing: 'ease-out' }
-      );
+      hop(); // a happy little hop, then gone
       fadeOut(250);
     });
   }
@@ -231,16 +301,21 @@
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const stageWidth = Math.max(w, stage.offsetWidth);
-    const stopX = Math.max(8, Math.round(window.innerWidth * STOP_AT - stageWidth / 2));
     const startX = -stageWidth;
+    // Move exactly one stride per step so the planted foot doesn't slide.
+    const natural = sprite.stride ? startX + STEPS * sprite.stride * scale : null;
+    const fallback = Math.round(window.innerWidth * STOP_AT - stageWidth / 2);
+    const stopX = Math.round(Math.max(8, Math.min(natural ?? fallback, window.innerWidth - stageWidth - 8)));
 
     state = {
       host, stage, buddy, sprite, w, h, reduced,
       autoSnoozeMs: autoSnoozeMs || 60000,
       stride: (stopX - startX) / STEPS,
       x: startX,
+      facing: 'side',
       leaving: false,
       autoTimer: null,
+      anim: null,
     };
 
     sipBtn.addEventListener('click', sip);
