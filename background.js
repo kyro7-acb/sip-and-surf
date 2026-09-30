@@ -9,7 +9,7 @@ import {
   saveSettings,
   saveTimer,
 } from './lib/state.js';
-import { buildSpriteSheet } from './lib/sprite.js';
+import { loadSprite } from './lib/sprite.js';
 
 const REMINDER_ALARM = 'sip-reminder';
 const AUTO_SNOOZE_ALARM = 'sip-auto-snooze';
@@ -80,7 +80,7 @@ async function restore() {
 let spriteCache = null;
 async function getSprite() {
   if (!spriteCache) {
-    spriteCache = buildSpriteSheet(chrome.runtime.getURL('assets/character-sprite.png')).catch((err) => {
+    spriteCache = loadSprite((path) => chrome.runtime.getURL(path)).catch((err) => {
       spriteCache = null;
       throw err;
     });

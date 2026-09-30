@@ -27,17 +27,20 @@ Chrome shows "Read and change all your data on all websites" at install. That's 
 
 ## The character
 
-The buddy is a pixel portrait of ayush (messy hair, round shades, black high-collar jacket, grey backpack), drawn in `tools/make_character.py` as a letter grid, one letter per pixel. Edit the grid and run `python3 tools/make_character.py` to tweak the look.
+The buddy is a pixel portrait of ayush: 80/20 side part with a faded undercut, round shades with the red and blue temple, a defined jawline, the black high-collar jacket with its logo patch, and the grey backpack. It walks with real leg swings, and on **Sip** the arm lifts the bottle to the chin and drinks through the straw while the water level drops.
 
-![All 11 frames built from the one image](docs/sheet-preview.png)
+`tools/make_character.py` draws all of it: the head and jacket are letter grids (one letter per pixel), and the legs, arm and bottle are posed per frame. Run `python3 tools/make_character.py` after editing to rebuild `assets/character-sheet.png`.
+
+![All 17 frames: idle, 8 walk frames, 8 drink frames](docs/sheet-preview.png)
 
 ### Using a different character
 
-Everything comes from **one image**: `assets/character-sprite.png`.
+You can swap in any character from **one image**, `assets/character-sprite.png`.
 
-1. Draw your character standing, **facing right**, holding the water bottle, on a transparent background. Feet on the bottom edge. Any size works; small pixel art (for example 24 × 32 or 32 × 48) looks crispest.
-2. Replace `assets/character-sprite.png` with it (same file name).
-3. Reload the extension in `chrome://extensions`.
+1. Delete `assets/character-sheet.json` and `assets/character-sheet.png` so the extension builds frames from your image instead.
+2. Draw your character standing, **facing right**, holding the water bottle, on a transparent background. Feet on the bottom edge. Any size works; small pixel art (for example 24 × 32 or 32 × 48) looks crispest.
+3. Replace `assets/character-sprite.png` with it (same file name).
+4. Reload the extension in `chrome://extensions`.
 
 When the extension starts, it builds the full sprite sheet from that single image (`lib/sprite.js`): 1 idle frame, 4 walk frames (a bob, lean and squash cycle, two steps per cycle) and 6 drink frames (tilts back with the bottle up, with water droplets, then comes back). You don't draw any extra frames. To change the poses, edit the `POSES` table in `lib/sprite.js`.
 
@@ -50,13 +53,13 @@ The on-screen height is about 160 px. Small images scale up by whole numbers so 
 | `manifest.json` | Manifest V3. Permissions: `alarms`, `storage`, `scripting`, `notifications`, `offscreen`, `tabs`, and host access to all sites. |
 | `background.js` | Service worker. Owns the timer (`chrome.alarms`), shows the reminder in the active tab, handles Sip, Snooze and auto-snooze, and records intake. |
 | `lib/state.js` | Settings, timer state and daily history in `chrome.storage.local`. |
-| `lib/sprite.js` | Builds the sprite sheet from your one image. |
+| `lib/sprite.js` | Loads the character sheet, or builds one from a single image if there is no sheet. |
 | `lib/insights.js` | Streaks, hit rate, averages and CSV export (pure functions, unit tested). |
 | `content/overlay.js` | The on-page buddy, inside a closed Shadow DOM so page CSS can't affect it and it can't affect the page. |
 | `offscreen/` | Plays `assets/sip.wav`. Service workers can't play audio, so an offscreen document does it. |
 | `popup/` | Today's intake, the countdown, and the settings. |
 | `history/` | History and insights page (also opens as the extension's options page). |
-| `tools/make_character.py` | Draws the character into `assets/character-sprite.png`. |
+| `tools/make_character.py` | Draws the character and its full sprite sheet (`assets/character-sheet.png` and `.json`). |
 | `tools/make_assets.py` | Regenerates the icons and the sip sound. |
 
 Timer rules:
@@ -69,7 +72,7 @@ Timer rules:
 
 ```sh
 npm test                    # unit tests for the insights maths (Node 18+)
-python3 tools/make_character.py  # redraw the character (needs pillow)
+python3 tools/make_character.py  # redraw the character sheet (needs pillow and numpy)
 python3 tools/make_assets.py     # regenerate icons and sound (needs pillow and numpy)
 ```
 

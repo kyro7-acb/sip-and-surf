@@ -149,7 +149,7 @@
     state.stage.classList.add('answered');
     send('SIP');
     const { sprite } = state;
-    const drink = playFrames(sprite.drinkStart, sprite.drinkFrames, 1500, 1);
+    const drink = playFrames(sprite.drinkStart, sprite.drinkFrames, sprite.drinkMs || 1500, 1);
     drink.finished.then(() => {
       if (!state) return;
       setFrame(sprite.idle);

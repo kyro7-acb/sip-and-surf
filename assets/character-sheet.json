@@ -1,0 +1,12 @@
+{
+  "image": "assets/character-sheet.png",
+  "frameWidth": 60,
+  "frameHeight": 70,
+  "idle": 0,
+  "walkStart": 1,
+  "walkFrames": 8,
+  "drinkStart": 9,
+  "drinkFrames": 8,
+  "drinkMs": 2200,
+  "total": 17
+}
