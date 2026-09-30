@@ -34,8 +34,8 @@ SS = 8  # supersampling for the vector shapes
 # Palette (from the photo: warm skin, dark brown hair, black shades with a blue, white and red
 # temple, black high-collar jacket with a white logo patch, grey backpack)
 
-SKIN = {"hi": (238, 194, 156), "lt": (226, 176, 136), "base": (208, 154, 112), "sh": (180, 126, 90),
-        "dk": (146, 96, 66), "ol": (94, 56, 42)}
+SKIN = {"hi": (231, 183, 143), "lt": (216, 164, 123), "base": (197, 142, 101), "sh": (168, 114, 79),
+        "dk": (135, 86, 58), "ol": (88, 51, 38)}
 HAIR = {"hi": (108, 84, 68), "lt": (74, 56, 45), "base": (47, 35, 30), "dk": (30, 22, 20), "ol": (15, 11, 11)}
 JACKET = {"hi": (98, 96, 110), "lt": (72, 70, 82), "base": (50, 49, 58), "sh": (37, 36, 43),
           "dk": (26, 25, 31), "ol": (12, 11, 15)}
@@ -235,8 +235,8 @@ def px(points, c):
 
 SIDE_SKIN = [R(y, a, b) for y, a, b in [
     (13, 31, 36), (14, 30, 37), (15, 29, 37), (16, 28, 38), (17, 28, 38), (18, 26, 37), (19, 25, 38),
-    (20, 25, 39), (21, 25, 40), (22, 25, 40), (23, 26, 39), (24, 26, 38), (25, 26, 38), (26, 27, 38),
-    (27, 27, 37), (28, 28, 37), (29, 30, 36)]]
+    (20, 25, 39), (21, 25, 40), (22, 25, 40), (23, 26, 39), (24, 27, 38), (25, 27, 38), (26, 27, 38),
+    (27, 27, 37), (28, 28, 37), (29, 31, 36)]]
 
 # Straight, slicked hair. The part is on this side (his right): below it the hair is combed
 # smooth back towards the ear, above it the big side rises and sweeps over, its ends falling
@@ -245,7 +245,7 @@ SIDE_HAIR = [R(y, a, b, "h") for y, a, b in [
     (4, 27, 33), (5, 23, 36), (6, 21, 38), (7, 20, 39), (8, 19, 39), (9, 19, 40), (10, 18, 40),
     (11, 18, 40), (12, 18, 40), (13, 18, 39), (14, 18, 30), (14, 33, 39), (15, 18, 28), (15, 36, 39),
     (16, 18, 27), (16, 38, 39), (17, 18, 26), (18, 18, 24), (19, 18, 24), (20, 19, 24), (21, 19, 24),
-    (22, 19, 24), (23, 20, 25), (24, 21, 25), (25, 22, 26), (26, 23, 26)]]
+    (22, 19, 24), (23, 20, 25), (24, 21, 25), (25, 22, 25)]]
 
 SIDE_DETAIL = (
     # the back edge and the nape a shade darker
@@ -275,9 +275,11 @@ SIDE_DETAIL = (
         R(18, 26, 27, "s"), R(19, 25, 25, "L"), R(19, 26, 26, "s"), R(20, 26, 26, "k"), R(21, 26, 26, "k"),
         R(22, 26, 26, "s"), R(19, 27, 27, "k"), R(20, 27, 27, "s"), R(21, 27, 27, "s"), R(22, 27, 27, "k"),
         R(23, 26, 26, "k"), R(20, 25, 25, "S"), R(21, 25, 25, "S"),
-        # face: soft shade in front of the ear, light on the cheekbone and the nose
-        R(21, 28, 29, "s"), R(22, 28, 29, "s"), R(23, 27, 28, "s"), R(24, 27, 28, "s"), R(25, 27, 28, "s"),
-        R(26, 28, 28, "s"), R(27, 28, 28, "s"), R(28, 30, 35, "L"), R(29, 31, 35, "S"),
+        # face: light on the cheekbone and the nose; the jaw runs straight down from under the ear,
+        # turns a sharp corner and runs forward to the chin, its edge catching the light
+        R(22, 28, 28, "s"), R(23, 27, 27, "s"),
+        R(24, 28, 28, "L"), R(25, 28, 28, "L"), R(26, 28, 28, "L"), R(27, 28, 28, "L"), R(28, 28, 30, "T"),
+        R(29, 31, 35, "T"),
         R(20, 33, 36, "L"), R(21, 33, 36, "L"), R(22, 34, 35, "L"), R(20, 39, 39, "L"), R(21, 39, 40, "L"),
         R(19, 37, 38, "L"), R(18, 36, 36, "s"),
         # brow over the lens
@@ -299,15 +301,18 @@ SIDE_DETAIL = (
 def side_head(f, oy):
     o = lambda pts: move(pts, 0, oy)
     # Neck first, so the head's outline draws the jawline over it.
-    neck = poly(o([(25.6, 23.0), (29.0, 28.0), (35.4, 30.2), (35.4, 33), (24.6, 33), (24.4, 26)]))
-    f.part(neck, SKIN["sh"], SKIN["ol"])
+    # The throat sits well behind the chin, so the jaw stands out against the neck in shadow.
+    neck = poly(o([(24.6, 21.0), (30.0, 25.5), (33.0, 29.0), (33.6, 31.0), (33.8, 35.0), (23.4, 35.0),
+                   (23.2, 27.0), (23.8, 24.0)]))
+    jaw = runs_mask(SIDE_SKIN, "S", oy)
+    f.part(neck, SKIN["sh"], SKIN["ol"], [(dilate(dilate(dilate(jaw))) & ~jaw, SKIN["dk"])])
 
-    # High funnel collar around the neck.
-    collar = poly(o([(23.4, 28.4), (27.4, 30.0), (31.5, 30.8), (35.0, 31.0), (36.2, 32.6), (36.4, 35.5),
-                     (23.0, 35.5), (22.6, 30.0)]))
+    # High funnel collar around the neck, stopping low enough to show the jaw.
+    collar = poly(o([(23.4, 31.0), (27.4, 32.0), (31.5, 32.6), (34.8, 32.6), (36.2, 33.8), (36.4, 35.8),
+                     (23.0, 35.8), (22.6, 32.0)]))
     f.part(collar, JACKET["base"], JACKET["ol"], [
         (edge(collar, 0, -1), JACKET["lt"]),
-        (poly(o([(22, 30.5), (27, 30.5), (26, 36), (22, 36)])), JACKET["sh"]),
+        (poly(o([(22, 31.5), (27, 31.5), (26, 36), (22, 36)])), JACKET["sh"]),
     ])
     paint_head(f, SIDE_SKIN, SIDE_HAIR, SIDE_DETAIL, oy)
 
