@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sip and Surf</title>
+  <link rel="stylesheet" href="../lib/theme.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="top">
+    <img src="../icons/icon32.png" alt="" width="24" height="24">
+    <h1>Sip and Surf</h1>
+  </header>
+
+  <section class="card today" aria-labelledby="today-title">
+    <div class="row">
+      <h2 id="today-title">Today</h2>
+      <span id="today-pct" class="pill">0%</span>
+    </div>
+    <p class="amount"><strong id="today-ml">0 ml</strong> <span class="muted">of <span id="today-target">2 L</span></span></p>
+    <div class="bar" role="progressbar" aria-labelledby="today-title" aria-valuemin="0" aria-valuemax="100" id="today-bar"><i></i></div>
+    <p class="muted small" id="today-note">No sips yet today.</p>
+    <div class="row gap">
+      <button id="log-glass" class="primary">+ <span id="glass-label">250 ml</span></button>
+      <button id="undo" class="ghost">Undo last</button>
+    </div>
+  </section>
+
+  <section class="card timer" aria-labelledby="timer-title">
+    <div class="row">
+      <h2 id="timer-title">Next reminder</h2>
+      <span id="timer-mode" class="pill">Running</span>
+    </div>
+    <p class="countdown" id="countdown">--:--</p>
+    <div class="row gap">
+      <button id="toggle" class="ghost">Pause</button>
+      <button id="remind-now" class="ghost">Remind me now</button>
+    </div>
+  </section>
+
+  <section class="card settings" aria-labelledby="settings-title">
+    <h2 id="settings-title">Settings</h2>
+    <label>Remind me every
+      <select id="interval">
+        <option value="10">10 minutes</option>
+        <option value="15">15 minutes</option>
+        <option value="20">20 minutes</option>
+        <option value="30">30 minutes</option>
+        <option value="45">45 minutes</option>
+        <option value="60">1 hour</option>
+        <option value="90">1.5 hours</option>
+        <option value="120">2 hours</option>
+        <option value="custom">Custom…</option>
+      </select>
+    </label>
+    <label id="custom-wrap" hidden>Custom interval (minutes, 10 or more)
+      <input id="custom" type="number" min="10" max="600" step="1">
+    </label>
+    <p class="muted small" id="snooze-note">Snooze waits 3 minutes (5% of the interval).</p>
+    <div class="two">
+      <label>Daily target (ml)
+        <input id="target" type="number" min="100" max="10000" step="50">
+      </label>
+      <label>One sip counts as (ml)
+        <input id="glass" type="number" min="10" max="2000" step="10">
+      </label>
+    </div>
+    <label class="check"><input id="sound" type="checkbox"> Play the sip sound</label>
+  </section>
+
+  <button id="open-history" class="link">History and insights →</button>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
