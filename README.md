@@ -27,7 +27,7 @@ Chrome shows "Read and change all your data on all websites" at install. That's 
 
 ## The character
 
-The buddy is a pixel portrait of ayush: 80/20 side part with a faded undercut, round shades with the red and blue temple, a defined jawline, the black high-collar jacket with its logo patch, and the grey backpack. It walks with real leg swings, and on **Sip** the arm lifts the bottle to the chin and drinks through the straw while the water level drops.
+The buddy is a pixel portrait of ayush: full, messy dark hair with the fringe falling forward, round shades with the red and blue temple, a straight nose, lips under a light moustache, a defined jawline, the black high-collar jacket with its logo patch, and a grey backpack worn over the shoulder. It walks with real leg swings, and on **Sip** the arm lifts the bottle to the chin and drinks through the straw while the water level drops.
 
 `tools/make_character.py` draws all of it: the head and jacket are letter grids (one letter per pixel), and the legs, arm and bottle are posed per frame. Run `python3 tools/make_character.py` after editing to rebuild `assets/character-sheet.png`.
 

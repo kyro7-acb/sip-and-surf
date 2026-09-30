@@ -26,14 +26,11 @@ FW, FH = 60, 70  # frame size
 GROUND = 66  # y of the shoe soles
 
 PAL = {
-    # hair
-    "H": (38, 28, 23), "M": (52, 39, 31), "L": (84, 64, 50),
-    "F": (60, 48, 41),  # undercut stubble
-    "f": (128, 86, 58),  # faded skin on the undercut
-    "P": (170, 120, 84),  # hard part line
+    # hair and brows
+    "H": (38, 28, 23), "M": (52, 39, 31), "L": (84, 64, 50), "e": (30, 22, 18),
     # skin
     "S": (178, 125, 86), "s": (146, 96, 62), "T": (199, 146, 104), "j": (120, 76, 48),
-    "E": (132, 84, 54), "N": (110, 66, 40), "m": (116, 78, 55), "O": (140, 78, 58),
+    "E": (132, 84, 54), "N": (110, 66, 40), "m": (138, 94, 66), "O": (122, 62, 48), "o": (166, 100, 78),
     # sunglasses
     "G": (18, 14, 14), "g": (104, 108, 124), "R": (214, 58, 44), "B": (58, 123, 213),
     # jacket
@@ -51,57 +48,58 @@ SKIN, SKIN_DARK = (178, 125, 86), (146, 96, 62)
 BOTTLE, BOTTLE_HI, WATER, WATER_DARK, CAP = (206, 236, 250), (240, 250, 255), (64, 170, 232), (40, 132, 196), (30, 90, 160)
 STRAW = (238, 242, 246)
 
-# 28 x 26 head, facing right. Hair: 80/20 side part (the hard part line P) with the long
-# top swept over and forward, and a faded undercut (F/f) around the side and back.
-# Jaw: sharp corner under the ear and a shadowed jawline (j) running to the chin.
+# 28 x 26 head, facing right, three-quarter view. Full, messy hair with the fringe falling
+# forward over the forehead; eyebrows over round shades; a straight nose that breaks the
+# face outline; upper and lower lip under a light moustache; a slim face with a defined
+# jawline (j) running from under the ear to the chin.
 HEAD = [
-    "...........MMMMMM...........",
-    "........MMMHHHHHHMMM........",
-    "......MMHHHHLLLHHHHMM.......",
-    ".....MHHHLLLHHHHHLLLHMM.....",
-    "....MHHLLHHHHHLLLHHHHLMM....",
-    "...MHHLHHHHHLLHHHHHLLHHMMM..",
-    "..MHHHHHHHLLHHHHHLLHHHHHLMM.",
-    "..HHHHHHHLHHHHHHLHHHHHLLHHMM",
+    "..........MMM.MMMM..........",
+    "......MMMMHHHMMHHHMMM.......",
+    "....MMHHHHHHHHHHHHHHHMM.....",
+    "...MHHHLHHHHHLLHHHHHHHHM....",
+    "..MHHHLHHHHHLHHHHHLLHHHHMM..",
+    "..MHHLHHHHHLHHHHHLHHHHHHHHM.",
+    ".MHHHHHHHHHHHHHHLHHHHLHHHHHM",
     ".MHHHHHHHHHHHHHHHHHHHHHHHHHM",
-    ".HPPPPPPPPPPPHHHHHHHHHHHHHMM",
-    ".FFFFFFFFFFFFHHHHHHHHHHHHHH.",
-    ".FFFFFFFFFFFFSSSHHHHHHHMHHH.",
-    "FfFfFfFfFfFSSSSGGGGSSSGGHHH.",
-    "fFfFfFfSESSSSSGgGGGGSGGGGSH.",
-    "fFffFffSEGGRBGGGGGGGGGGGGS..",
-    "ffFffFfSESSSSSGGGGGGSGGGGSS.",
-    "fffFfffSESSSSSGGGGGGSSGGSSS.",
-    "ffffffFSSSsSSSSGGGGSSSSSSSSS",
-    ".fffffSsSSSSSSSSSSSSSSSTSNS.",
-    "..ffffsjSSSSSSSSSSSSSTTSS...",
-    "...fffsjSSSSSSSSSSSSSmmmSS..",
-    "....ffsjjSSSSSSSSSSSSOOSS...",
-    "......ssjjSSSSSSSSSSSSSSS...",
-    "........jjjSSSSSSSSSSSSS....",
-    "...........jjjSSSSSSSSS.....",
-    "..............jjjjjjj.......",
+    ".HHHHHHHHHHHHHHHHHHHHHHHHHHH",
+    ".HHHHHHHHHHHHHSSHHHHHHHHHHH.",
+    ".HHHHHHHHHHHSSSSSHHSSHHHHHM.",
+    "HHHHHHHHHHHSSSSSSSSSSSHHHM..",
+    "HHHHHHHHHHSeeeeeSSeeeeSHH...",
+    "HHHHHHSESHSSGGGGSSSGGSSS....",
+    "HHHHHHSESHSGgGGGGSGGGGSS....",
+    "HHHHHHSESRBGGGGGGGGGGGSS....",
+    "HHHHHHSESHSGGGGGGSGGGGSST...",
+    "HHHHHHSSSHSGGGGGGSSGGSSTS...",
+    "HHHHHHSsSSSSGGGGSSSSSSsSTS..",
+    ".HHHHHHjSSSSSSSSSSSSSsNNSS..",
+    "..HHHHHjsSSSSSSSSSSmmmSS....",
+    "...HHHHsjSSSSSSSSSSOOOS.....",
+    "........jjSSSSSSSSSoooS.....",
+    ".........sjjSSSSSSSsSST.....",
+    "...........sjjjSSSSSTS......",
+    "..............sjjjjjj.......",
 ]
 
-# 30 x 22 oversized jacket with a high standing collar, storm-flap line, logo patch and the
-# grey backpack strap over the near shoulder.
+# 30 x 22 oversized jacket with a high standing collar and storm-flap line. The backpack
+# strap and logo patch are painted on top (STRAP, LOGO below).
 TORSO = [
     "........DDDDDJJJJJJ...........",
     ".......DDDDDDJJJJJJJU.........",
     ".......DDDDDCCJJJJJJU.........",
     ".......DDDDDCCCJJJJJJU........",
     "......DDDDDDCCJJJJJJJJU.......",
-    "....DDDDDAAADJJJJJJJJJJJJU....",
-    "...DDDDDDAAaDJJJJJJZJJJJJJU...",
-    "..DDDDDDDAAaDJJJJJJZJJJJJJJU..",
-    "..DDDDDDDAAaDJJJJJJZJJJJJJJU..",
-    "..DDDDDDDAAaDJJJJJJJZJJJJJJU..",
-    "..DDDDDDDAAaDJJWWWJJZJJJJJJU..",
-    "..DDDDDDDAAaDJJJJJJJZJJJJJJU..",
-    "..DDDDDDDAAaDJJJJJJJJZJJJJJU..",
-    "..DDDDDDDAAaDJJJJJJJJZJJJJJU..",
-    "..DDDDDDDDAaDJJJJJJJJZJJJJJJU.",
-    "..DDDDDDDDAaDJJJJJJJJJZJJJJJU.",
+    "....DDDDDDDDDJJJJJJJJJJJJU....",
+    "...DDDDDDDDDDJJJJJJZJJJJJJU...",
+    "..DDDDDDDDDDDJJJJJJZJJJJJJJU..",
+    "..DDDDDDDDDDDJJJJJJZJJJJJJJU..",
+    "..DDDDDDDDDDDJJJJJJJZJJJJJJU..",
+    "..DDDDDDDDDDDJJJJJJJZJJJJJJU..",
+    "..DDDDDDDDDDDJJJJJJJZJJJJJJU..",
+    "..DDDDDDDDDDDJJJJJJJJZJJJJJU..",
+    "..DDDDDDDDDDDJJJJJJJJZJJJJJU..",
+    "..DDDDDDDDDDDJJJJJJJJZJJJJJJU.",
+    "..DDDDDDDDDDDJJJJJJJJJZJJJJJU.",
     "..DDDDDDDDDDDJJJJJJJJJZJJJJJU.",
     "..DDDDDDDDDDDJJJJJJJJJZJJJJJU.",
     "..DDDDDDDDDDDJJJJJJJJJJZJJJJU.",
@@ -109,6 +107,14 @@ TORSO = [
     "...DDDDDDDDDDJJJJJJJJJJZJJJJU.",
     "...DDDDDDDDDDDDDDDDDDDDDDDDDD.",
 ]
+
+# Backpack strap: over the near shoulder, down the chest, then back under the arm to the bag.
+STRAP = [
+    (4, (10, 12)), (5, (11, 13)), (6, (11, 13)), (7, (12, 14)), (8, (12, 14)), (9, (13, 15)),
+    (10, (13, 15)), (11, (14, 16)), (12, (14, 16)), (13, (14, 16)), (14, (12, 15)), (15, (9, 12)),
+    (16, (6, 9)),
+]
+LOGO = (10, (17, 19))
 
 HEAD_AT = (15, 2)
 TORSO_AT = (14, 23)
@@ -121,7 +127,7 @@ UPPER_ARM, FOREARM = 8, 8
 # Holding: bottle at the hip. Drinking: bottle up at the chin so the straw reaches the mouth.
 HAND_HOLD = (46, 40.5)
 HAND_DRINK = (44, 33)
-MOUTH = (HEAD_AT[0] + 22, HEAD_AT[1] + 21)
+MOUTH = (HEAD_AT[0] + 21, HEAD_AT[1] + 21)
 
 
 def blank():
@@ -135,6 +141,17 @@ def grid_layer(rows, ox, oy):
             if c != ".":
                 layer.putpixel((ox + x, oy + y), PAL[c] + (255,))
     return layer
+
+
+def torso_rows():
+    rows = [list(r) for r in TORSO]
+    for y, (x0, x1) in STRAP:
+        for x in range(x0, x1 + 1):
+            rows[y][x] = "a" if x == x1 else "A"
+    y, (x0, x1) = LOGO
+    for x in range(x0, x1 + 1):
+        rows[y][x] = "W"
+    return ["".join(r) for r in rows]
 
 
 def outlined(layer):
@@ -167,12 +184,16 @@ def polar(origin, length, deg):
 
 
 def draw_backpack(dy):
+    """Side view of a backpack worn on the back: rounded top, grab handle, zip, front pocket."""
     layer = blank()
     d = ImageDraw.Draw(layer)
-    d.rounded_rectangle([9, 29 + dy, 17, 45 + dy], radius=3, fill=PACK)
-    d.line([(10, 31 + dy), (10, 43 + dy)], fill=PACK_HI)
-    d.rectangle([14, 30 + dy, 17, 45 + dy], fill=PACK_DARK)
-    d.line([(10, 38 + dy), (15, 38 + dy)], fill=PACK_DARK)  # pocket seam
+    d.rounded_rectangle([9, 28 + dy, 18, 47 + dy], radius=4, fill=PACK)
+    d.line([(11, 30 + dy), (16, 30 + dy)], fill=PACK_HI)  # zip along the top
+    d.line([(9, 34 + dy), (9, 44 + dy)], fill=PACK_DARK)  # shaded outer side
+    d.rounded_rectangle([7, 37 + dy, 12, 46 + dy], radius=2, fill=PACK_DARK)  # front pocket
+    d.line([(8, 39 + dy), (11, 39 + dy)], fill=PACK_HI)  # pocket zip
+    d.line([(12, 26 + dy), (15, 26 + dy)], fill=PACK_DARK)  # grab handle
+    d.point([(11, 27 + dy), (16, 27 + dy)], fill=PACK_DARK)
     return outlined(layer)
 
 
@@ -271,7 +292,7 @@ def frame(leg_phase=None, lift=0.0, level=1.0, sipping=False, bubbles=()):
     hb, hf = HIPS["back"], HIPS["front"]
     img.alpha_composite(draw_leg((hb[0], hb[1] + dy), back, lift_b, dark=True))
     img.alpha_composite(draw_leg((hf[0], hf[1] + dy), front, lift_f, dark=False))
-    img.alpha_composite(outlined(grid_layer(TORSO, TORSO_AT[0], TORSO_AT[1] + dy)))
+    img.alpha_composite(outlined(grid_layer(torso_rows(), TORSO_AT[0], TORSO_AT[1] + dy)))
     img.alpha_composite(outlined(grid_layer(HEAD, HEAD_AT[0], HEAD_AT[1] + dy)))
     shoulder = (SHOULDER[0], SHOULDER[1] + dy)
     hand = (
