@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sip and Surf: history and insights</title>
+  <link rel="stylesheet" href="../lib/theme.css">
+  <link rel="stylesheet" href="history.css">
+</head>
+<body>
+  <main>
+    <header class="top">
+      <img src="../icons/icon48.png" alt="" width="36" height="36">
+      <div>
+        <h1>History and insights</h1>
+        <p class="muted" id="subtitle">Your daily water intake against your target.</p>
+      </div>
+      <div class="range" role="group" aria-label="Date range">
+        <button data-range="7">7 days</button>
+        <button data-range="30" aria-pressed="true">30 days</button>
+        <button data-range="90">90 days</button>
+      </div>
+    </header>
+
+    <section class="tiles" aria-label="Summary">
+      <div class="tile"><span class="label">Today</span><strong id="t-today">0 ml</strong><span class="sub" id="t-today-sub">of 2 L</span></div>
+      <div class="tile"><span class="label">Current streak</span><strong id="t-streak">0 days</strong><span class="sub" id="t-streak-sub">target met in a row</span></div>
+      <div class="tile"><span class="label">Best streak</span><strong id="t-best-streak">0 days</strong><span class="sub">all time</span></div>
+      <div class="tile"><span class="label">Target hit rate</span><strong id="t-hit">0%</strong><span class="sub" id="t-hit-sub">of tracked days</span></div>
+      <div class="tile"><span class="label">Daily average</span><strong id="t-avg">0 ml</strong><span class="sub" id="t-avg-sub">per tracked day</span></div>
+      <div class="tile"><span class="label">Reminders answered with Sip</span><strong id="t-response">0%</strong><span class="sub" id="t-response-sub">no reminders yet</span></div>
+    </section>
+
+    <section class="panel" aria-labelledby="daily-title">
+      <div class="panel-head">
+        <h2 id="daily-title">Daily intake</h2>
+        <span class="legend"><i class="sw bar"></i>Intake <i class="sw line"></i>Target</span>
+      </div>
+      <div class="chart" id="daily-chart"></div>
+      <p class="muted small" id="daily-note"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="hour-title">
+      <div class="panel-head">
+        <h2 id="hour-title">When you drink</h2>
+        <span class="muted small">Sips logged per hour of the day, selected range</span>
+      </div>
+      <div class="chart" id="hour-chart"></div>
+      <p class="muted small" id="hour-note"></p>
+    </section>
+
+    <section class="panel" aria-labelledby="table-title">
+      <div class="panel-head">
+        <h2 id="table-title">Day by day</h2>
+        <div class="actions">
+          <button id="export" class="ghost">Export CSV</button>
+          <button id="clear" class="ghost danger">Clear history</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Date</th><th scope="col">Intake</th><th scope="col">Target</th><th scope="col">Of target</th><th scope="col">Sips</th><th scope="col">Snoozes</th></tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <div class="tooltip" id="tooltip" role="status" hidden></div>
+  <script type="module" src="history.js"></script>
+</body>
+</html>

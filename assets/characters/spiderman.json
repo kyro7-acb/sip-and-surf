@@ -1,0 +1,29 @@
+{
+  "image": "assets/characters/spiderman.png",
+  "frameWidth": 64,
+  "frameHeight": 100,
+  "idle": 0,
+  "walkStart": 1,
+  "walkFrames": 8,
+  "stride": 27.76,
+  "turnStart": 9,
+  "turnFrames": 1,
+  "frontIdle": 10,
+  "drinkStart": 11,
+  "drinkFrames": 8,
+  "drinkMs": 2400,
+  "cheers": 19,
+  "angryStart": 20,
+  "angryFrames": 2,
+  "anger": {
+    "front": [
+      45,
+      6
+    ],
+    "side": [
+      39,
+      5
+    ]
+  },
+  "total": 22
+}

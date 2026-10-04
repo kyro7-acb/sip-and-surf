@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sip and Surf: meet your buddy</title>
+  <link rel="stylesheet" href="../lib/theme.css">
+  <link rel="stylesheet" href="welcome.css">
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <div class="stage" aria-hidden="true"><div class="sprite" id="hero-sprite"></div></div>
+      <div class="hero-text">
+        <p class="kicker"><img src="../icons/icon32.png" alt="" width="20" height="20"> Sip and Surf</p>
+        <h1>Meet your buddy</h1>
+        <p class="lead">Every so often your buddy walks onto the page you're on, stops, looks at you and takes a sip. Then it's your turn: <strong>Sip</strong> or <strong>Snooze</strong>.</p>
+        <div class="row">
+          <button id="demo" class="primary big">Watch a visit</button>
+          <span class="muted small" id="demo-note">Try both buttons. Nothing is logged in the demo.</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="panel" aria-labelledby="pick-title">
+      <h2 id="pick-title">1. Pick your buddy</h2>
+      <div class="chars" id="chars" role="radiogroup" aria-labelledby="pick-title"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="setup-title">
+      <h2 id="setup-title">2. When should it come?</h2>
+      <div class="setup">
+        <label>Remind me every
+          <select id="interval">
+            <option value="15">15 minutes</option>
+            <option value="20">20 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="45">45 minutes</option>
+            <option value="60">1 hour</option>
+            <option value="90">1.5 hours</option>
+            <option value="120">2 hours</option>
+          </select>
+        </label>
+        <div>
+          <label class="check"><input id="hours-on" type="checkbox"> Only between</label>
+          <div class="times">
+            <input id="hours-start" type="time" aria-label="Start time">
+            <span class="muted">and</span>
+            <input id="hours-end" type="time" aria-label="End time">
+          </div>
+          <p class="muted small">No reminders at 2 a.m. Pick days and more in the toolbar popup.</p>
+        </div>
+        <label class="check wide"><input id="busy" type="checkbox"> Stay hidden during full-screen video, games and calls (Google Meet, Zoom, Teams, Discord and others). Your buddy waits until you're done.</label>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="how-title">
+      <h2 id="how-title">3. What your buddy does</h2>
+      <ul class="how">
+        <li><strong>Sip:</strong> it says "Cheers!", raises its bottle to you, hops and walks on. Your sip is logged and the next reminder is a full interval away.</li>
+        <li><strong>Snooze:</strong> it gets angry, with a big anger mark, and stomps back the way it came. It's back after your snooze time (3 minutes unless you change it).</li>
+        <li><strong>Ignore it:</strong> after 60 seconds it snoozes by itself, just as angry.</li>
+        <li>On pages Chrome protects (like <code>chrome://</code> pages and the Web Store) you get a notification with the same two buttons.</li>
+      </ul>
+      <p class="muted small">Pin Sip and Surf to your toolbar (the puzzle piece icon, then the pin) to see today's water, the countdown and every setting.</p>
+    </section>
+
+    <section class="panel make" id="make" aria-labelledby="make-title">
+      <div class="make-head">
+        <h2 id="make-title">Make me a buddy</h2>
+        <span class="price" id="price">$10</span>
+      </div>
+      <p class="lead">Want your buddy to be <em>you</em>? Send a photo and get your own pixel buddy that walks, sips and sulks just like these two. It can be you, a friend or your pet.</p>
+      <ol class="steps">
+        <li><strong>Email your photos.</strong> One to three clear photos, plus anything you want included: glasses, a hairstyle, an outfit, colours.</li>
+        <li><strong>Agree the details by email.</strong> It's a one-time fee of <span class="price-text">$10</span>. We sort out how you pay over email, with an option that works where you live.</li>
+        <li><strong>Get your buddy file.</strong> You receive a <code>.buddy.json</code> file. Add it below and your buddy starts visiting.</li>
+      </ol>
+      <div class="row">
+        <a id="order" class="button primary big" target="_blank" rel="noopener">Email us to order</a>
+        <span class="muted small" id="order-off" hidden>Ordering opens soon.</span>
+      </div>
+      <p class="muted small">Buddies are drawn from real people and pets only, not famous characters. Your photos are only used to draw your buddy, and are deleted once you have it. See the <a href="../privacy/privacy.html">privacy policy</a>.</p>
+    </section>
+
+    <section class="panel" id="buddies" aria-labelledby="buddies-title">
+      <h2 id="buddies-title">Your buddies</h2>
+      <p>Got a buddy file? Add it here. It stays on this computer.</p>
+      <div class="row">
+        <label class="button primary file">Add a buddy file<input id="file" type="file" accept=".json,application/json"></label>
+        <span id="file-msg" class="small" role="status"></span>
+      </div>
+      <p class="muted small" id="no-buddies">No custom buddies yet.</p>
+    </section>
+
+    <footer>
+      <a href="../privacy/privacy.html">Privacy policy</a>
+      <span id="support" hidden>· Questions? <a id="support-link"></a></span>
+      <span>· <a href="../history/history.html">History and insights</a></span>
+    </footer>
+  </main>
+  <script src="../content/overlay.js"></script>
+  <script type="module" src="welcome.js"></script>
+</body>
+</html>

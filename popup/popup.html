@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sip and Surf</title>
+  <link rel="stylesheet" href="../lib/theme.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="top">
+    <img src="../icons/icon32.png" alt="" width="24" height="24">
+    <h1>Sip and Surf</h1>
+  </header>
+
+  <section class="card today" aria-labelledby="today-title">
+    <div class="row">
+      <h2 id="today-title">Today</h2>
+      <span id="today-pct" class="pill">0%</span>
+    </div>
+    <p class="amount"><strong id="today-ml">0 ml</strong> <span class="muted">of <span id="today-target">2 L</span></span></p>
+    <div class="bar" role="progressbar" aria-labelledby="today-title" aria-valuemin="0" aria-valuemax="100" id="today-bar"><i></i></div>
+    <p class="muted small" id="today-note">No sips yet today.</p>
+    <div class="row gap">
+      <button id="log-glass" class="primary">+ <span id="glass-label">250 ml</span></button>
+      <button id="undo" class="ghost">Undo last</button>
+    </div>
+  </section>
+
+  <section class="card timer" aria-labelledby="timer-title">
+    <div class="row">
+      <h2 id="timer-title">Next reminder</h2>
+      <span id="timer-mode" class="pill">Running</span>
+    </div>
+    <p class="countdown" id="countdown">--:--</p>
+    <p class="muted small" id="timer-note" hidden></p>
+    <div class="row gap">
+      <button id="toggle" class="ghost">Pause</button>
+      <button id="remind-now" class="ghost">Remind me now</button>
+    </div>
+  </section>
+
+  <section class="card characters" aria-labelledby="char-title">
+    <h2 id="char-title">Your buddy</h2>
+    <div class="chars" id="chars" role="radiogroup" aria-labelledby="char-title"></div>
+    <div class="make">
+      <p class="small"><strong>Make me a buddy</strong> <span class="price" id="price">$10</span><br>
+        <span class="muted">Your own pixel buddy, drawn from your photos. One-time, arranged by email.</span></p>
+      <div class="row gap tight">
+        <button id="make" class="primary">Tell me more</button>
+        <button id="add-buddy" class="ghost">Add a buddy file</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="card settings" aria-labelledby="settings-title">
+    <h2 id="settings-title">Settings</h2>
+    <label>Remind me every
+      <select id="interval">
+        <option value="10">10 minutes</option>
+        <option value="15">15 minutes</option>
+        <option value="20">20 minutes</option>
+        <option value="30">30 minutes</option>
+        <option value="45">45 minutes</option>
+        <option value="60">1 hour</option>
+        <option value="90">1.5 hours</option>
+        <option value="120">2 hours</option>
+        <option value="custom">Custom…</option>
+      </select>
+    </label>
+    <label id="custom-wrap" hidden>Custom interval (minutes, 10 or more)
+      <input id="custom" type="number" min="10" max="600" step="1">
+    </label>
+    <label>Snooze for
+      <select id="snooze">
+        <option value="1">1 minute</option>
+        <option value="2">2 minutes</option>
+        <option value="3">3 minutes</option>
+        <option value="5">5 minutes</option>
+        <option value="10">10 minutes</option>
+        <option value="15">15 minutes</option>
+        <option value="30">30 minutes</option>
+        <option value="custom">Custom…</option>
+      </select>
+    </label>
+    <label id="snooze-custom-wrap" hidden>Custom snooze (minutes, 1 to 120)
+      <input id="snooze-custom" type="number" min="1" max="120" step="1">
+    </label>
+    <div class="two">
+      <label>Daily target (ml)
+        <input id="target" type="number" min="100" max="10000" step="50">
+      </label>
+      <label>One sip counts as (ml)
+        <input id="glass" type="number" min="10" max="2000" step="10">
+      </label>
+    </div>
+    <label class="check"><input id="sound" type="checkbox"> Play the sip sound</label>
+    <fieldset class="hours">
+      <legend class="sr">Active hours</legend>
+      <label class="check"><input id="hours-on" type="checkbox"> Only remind me between</label>
+      <div class="row gap tight times">
+        <input id="hours-start" type="time" aria-label="Start time" required>
+        <span class="muted">and</span>
+        <input id="hours-end" type="time" aria-label="End time" required>
+      </div>
+      <div class="days" id="days" role="group" aria-label="Days"></div>
+    </fieldset>
+    <label class="check"><input id="busy" type="checkbox"> Stay hidden during full-screen video, games and calls</label>
+  </section>
+
+  <nav class="links">
+    <button id="open-history" class="link">History and insights</button>
+    <button id="open-welcome" class="link">Buddies and help</button>
+    <button id="open-privacy" class="link">Privacy</button>
+  </nav>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sip and Surf: privacy policy</title>
+  <link rel="stylesheet" href="../lib/theme.css">
+  <style>
+    main { max-width: 760px; margin: 0 auto; padding: 28px 20px 60px; line-height: 1.55; }
+    h1 { font-size: 28px; margin-bottom: 4px; }
+    h2 { font-size: 18px; margin: 26px 0 8px; }
+    p, li { font-size: 15px; }
+    table { border-collapse: collapse; width: 100%; font-size: 14px; }
+    th, td { text-align: left; vertical-align: top; padding: 8px; border-bottom: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 600; }
+    code { background: var(--track); padding: 1px 5px; border-radius: 4px; }
+    a { color: var(--accent); }
+    .short { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Privacy policy</h1>
+    <p class="muted">Sip and Surf · Last updated 4 October 2026</p>
+    <p class="short"><strong>The short version:</strong> Sip and Surf doesn't collect, send, share or sell any of your data. Everything it keeps stays in your own browser.</p>
+
+    <h2>What Sip and Surf keeps, on your computer only</h2>
+    <ul>
+      <li><strong>Your settings:</strong> how often to remind you, the snooze length, your daily target, your active hours, the sound setting and which buddy you picked.</li>
+      <li><strong>Your water log:</strong> how much you drank each day and when you pressed Sip or Snooze. This is what the History page shows.</li>
+      <li><strong>Custom buddies</strong> you added from a buddy file.</li>
+    </ul>
+    <p>These live in Chrome's storage for the extension, on this computer. They are never sent anywhere. You can export your history as a CSV file from the History page. Removing the extension deletes all of it.</p>
+
+    <h2>What Sip and Surf doesn't do</h2>
+    <ul>
+      <li>No accounts, sign-ins or servers.</li>
+      <li>No analytics, tracking, ads or cookies.</li>
+      <li>It never reads, records or changes what's on the pages you visit.</li>
+      <li>It makes no network requests at all.</li>
+    </ul>
+
+    <h2>Why it asks for the permissions it has</h2>
+    <table>
+      <tr><th>Permission</th><th>Why</th></tr>
+      <tr><td>Access to all websites</td><td>So your buddy can walk onto whatever page you're on. It adds itself to the page in a sealed box (a closed Shadow DOM) that the page can't see into, and it doesn't read the page.</td></tr>
+      <tr><td><code>tabs</code></td><td>To find the tab you're looking at, and to see whether a tab is a video call (like Google Meet or Zoom) or playing sound, so the buddy waits instead of interrupting a call. Only the tab's address and its sound state are checked, on your computer, and nothing is stored.</td></tr>
+      <tr><td><code>scripting</code></td><td>To put the buddy on the page, and to check whether the page is in full screen.</td></tr>
+      <tr><td><code>alarms</code></td><td>To time your reminders.</td></tr>
+      <tr><td><code>storage</code></td><td>To keep your settings, your water log and your buddies.</td></tr>
+      <tr><td><code>notifications</code></td><td>To remind you on pages where the buddy can't appear (like Chrome's own pages).</td></tr>
+      <tr><td><code>offscreen</code></td><td>To play the sip sound.</td></tr>
+    </table>
+
+    <h2>"Make me a buddy"</h2>
+    <p>If you order a custom buddy, you send your photos and details by email. They are used only to draw your buddy and to agree the order and payment with you. Your photos are never shared, and they are deleted once you have your buddy file. Payment happens outside the extension, by a method agreed over email, and that payment service's own privacy policy applies to it.</p>
+
+    <h2>Changes</h2>
+    <p>If this policy changes, the new version will be posted here with a new date.</p>
+
+    <h2>Contact</h2>
+    <p id="contact">Questions about privacy or your order: see the contact email on the Sip and Surf Chrome Web Store listing.</p>
+  </main>
+  <script type="module" src="privacy.js"></script>
+</body>
+</html>

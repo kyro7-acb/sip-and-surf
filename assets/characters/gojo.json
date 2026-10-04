@@ -1,0 +1,29 @@
+{
+  "image": "assets/characters/gojo.png",
+  "frameWidth": 64,
+  "frameHeight": 100,
+  "idle": 0,
+  "walkStart": 1,
+  "walkFrames": 8,
+  "stride": 27.76,
+  "turnStart": 9,
+  "turnFrames": 1,
+  "frontIdle": 10,
+  "drinkStart": 11,
+  "drinkFrames": 8,
+  "drinkMs": 2400,
+  "cheers": 19,
+  "angryStart": 20,
+  "angryFrames": 2,
+  "anger": {
+    "front": [
+      44,
+      4
+    ],
+    "side": [
+      38,
+      3
+    ]
+  },
+  "total": 22
+}

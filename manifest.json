@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "Sip and Surf",
+  "short_name": "Sip and Surf",
+  "version": "2.0.0",
+  "description": "A pixel buddy walks onto your screen with a water bottle, reminds you to sip, sulks when you snooze, and tracks your daily intake.",
+  "minimum_chrome_version": "120",
+  "permissions": [
+    "alarms",
+    "storage",
+    "scripting",
+    "notifications",
+    "offscreen",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Sip and Surf",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "options_page": "history/history.html"
+}

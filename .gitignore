@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+*.zip
+__pycache__/
+# customers' photos and buddy files never go in the repo
+customers/
+*.buddy.json
