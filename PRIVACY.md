@@ -41,4 +41,4 @@ If this policy changes, the new version will be posted here with a new date.
 
 ## Contact
 
-Questions about privacy or your order: see the contact email on the Sip and Surf Chrome Web Store listing, or open an issue on this project's GitHub page.
+Questions about privacy or your order: [ayushks777@gmail.com](mailto:ayushks777@gmail.com).

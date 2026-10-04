@@ -42,7 +42,7 @@ A custom buddy that looks like you (or a friend, or a pet), with the same walk, 
 2. You agree the details and the payment by email, using a method that works for both of you.
 3. You draw the buddy and send back a `.buddy.json` file. The buyer adds it with **Add a buddy file**, and it becomes their buddy right away. Buddy files stay on their computer.
 
-Set the email address that orders go to in `lib/config.js` (`CONTACT_EMAIL`). Until it's set, the order button says "Ordering opens soon". The price and the email template live there too. Buddies are of real people and pets only, not famous characters.
+Orders go to the email address in `lib/config.js` (`CONTACT_EMAIL`). If it is left empty, the order button says "Ordering opens soon". The price and the email template live there too. Buddies are of real people and pets only, not famous characters.
 
 ### Making a buddy file
 
